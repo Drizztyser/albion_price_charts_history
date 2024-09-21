@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="csvToHtml.js"></script>
+
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Price history for selected item</h1>
+
+    <div>
+        Item : <input type="text" id="searchInput" placeholder="Search..." value="" onkeyup="filterTable()">
+        <label>Select Locations:</label>
+        <div id="locationDropdown" style="position: relative; display: inline-block;">
+            <button onclick="toggleDropdown()">Select Locations</button>
+            <div id="dropdownContent"
+                style="display: none; position: absolute; padding: 2px; background-color: white; border: 1px solid #ddd; z-index: 1;">
+                <label><input type="checkbox" id="fortsterling" value="fortsterling"> Fort Sterling</label><br>
+                <label><input type="checkbox" id="thetford" value="thetford"> Thetford</label><br>
+                <label><input type="checkbox" id="lymhurst" value="lymhurst"> Lymhurst</label><br>
+                <label><input type="checkbox" id="brecilien" value="brecilien"> Brecilien</label><br>
+                <label><input type="checkbox" id="martlock" value="martlock"> Martlock</label><br>
+                <label><input type="checkbox" id="bridgewatch" value="bridgewatch"> Bridgewatch</label><br>
+            </div>
+        </div>
+    </div>
+    <div style="display: flex;">
+        <table id="csvTable">
+            <thead>
+                <tr id="csvHeaders"></tr>
+            </thead>
+            <tbody id="csvBody"></tbody>
+        </table>
+
+        <div style="width: 80%; padding-left: 20px;">
+            <canvas id="chart" style="width: 100%;"></canvas>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownContent");
+        dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
+    }
+
+    window.onclick = function (event) {
+        const dropdown = document.getElementById("dropdownContent");
+        if (!event.target.matches('#locationDropdown button') && !event.target.closest('#locationDropdown')) {
+            dropdown.style.display = "none";
+        }
+    }
+
+</script>
+
+</html>
